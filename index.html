@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>password generator</title>
+
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <style>
+      * {
+    margin: 0;
+    padding: 1;
+    box-sizing: border-box;
+    background-color: #f0ece5;
+  }
+
+  section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    background-color: #b6bbc4;
+    height: max-content;
+    width: max-content;
+    padding: 28px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  .output {
+    height: 30px;
+    max-width: 180px;
+    padding: 4px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 6px;
+    margin: 0px auto 8px;
+  }
+
+  input {
+    height: 25px;
+    width: 40px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+  }
+
+  label {
+    background-color: #b6bbc4;
+  }
+
+  .grnerate-btn {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & button {
+      padding: 6px;
+      width: 200px;
+      margin-top: 10px;
+      background-color: #161a30;
+      color: #f0ece5;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      border: none;
+    }
+  }
+
+  .checkBox {
+    height: 15px;
+    color: #161a30;
+  }
+
+  div {
+    margin-bottom: 4px;
+    background-color: #b6bbc4;
+  }
+
+  h2 {
+    margin-bottom: 12px;
+    background-color: #b6bbc4;
+    text-align: center;
+  }
+    </style>
+
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <h2>Password Generator</h2>
+        <div class="output"></div>
+        <div class="no-of-letter">
+          Lenght of password :
+          <input type="text" id="passLength" placeholder="..." /> digits
+        </div>
+        <div class="int">
+          <label for="check-int">
+            <input
+              id="check-int"
+              name="check-int"
+              class="checkBox"
+              type="checkbox"
+            />
+          </label>
+          Include integers
+        </div>
+        <div class="small-alpha">
+          <label for="check-small-letter">
+            <input
+              id="check-small-letter"
+              name="check-small-letter"
+              class="checkBox"
+              type="checkbox"
+          /></label>
+          Include small alphabet letters
+        </div>
+        <div class="capital-alpha">
+          <label for="check-capital-letter">
+            <input
+              id="check-capital-letter"
+              name="check-capital-letter"
+              class="checkBox"
+              type="checkbox"
+          /></label>
+          Include capital alphabet letters
+        </div>
+        <div class="special-char">
+          <label for="check-special">
+            <input
+              id="check-special"
+              name="check-special"
+              class="checkBox"
+              type="checkbox"
+            />
+          </label>
+          Include special character
+        </div>
+        <div class="grnerate-btn">
+          <button onclick="generatePassword()">Generate</button>
+          <button onclick="ClearPassword()">Clear</button>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      integer = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+      smallAlphabet = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+      ];
+      capitalAlphabet = [ 
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z",
+      ];
+      specialCharacter = ["!", "@", "#", "$", "&"];
+
+      const output = document.getElementsByClassName("output")[0];
+      const int = document.getElementsByClassName("int")[0];
+      const smallAlpha = document.getElementsByClassName("small-alpha")[0];
+      const capitalAlpha = document.getElementsByClassName("capital-alpha")[0];
+      const specialChar = document.getElementsByClassName("special-char")[0];
+      const digitInput = document.getElementById("passLength");
+
+      // Check-box-start=============================================
+
+      const checkInt = document.getElementById("check-int");
+      const checkSmall = document.getElementById("check-small-letter");
+      const checkCapital = document.getElementById("check-capital-letter");
+      const checkSpecial = document.getElementById("check-special");
+
+      // Check-box-ends=============================================
+
+      const generatePassword = () => {
+        output.innerHTML = "";
+        let inputDigitValue = digitInput.value;
+        console.log(checkCapital.checked);
+
+        let count = 0;
+
+        while (count < inputDigitValue) {
+          let randNumber = Math.floor(Math.random() * 4);
+
+          let choosenInteger =
+            integer[Math.floor(Math.random() * integer.length)];
+          let choosenSmallAlpha =
+            smallAlphabet[Math.floor(Math.random() * smallAlphabet.length)];
+          let choosenCapitalAplha =
+            capitalAlphabet[Math.floor(Math.random() * capitalAlphabet.length)];
+          let choosenSpecialChar =
+            specialCharacter[
+              Math.floor(Math.random() * specialCharacter.length)
+            ];
+
+          if (randNumber === 0 && checkInt.checked) {
+            output.innerHTML += choosenInteger;
+            count++;
+          }
+          if (randNumber === 1 && checkCapital.checked) {
+            output.innerHTML += choosenCapitalAplha;
+            count++;
+          }
+          if (randNumber === 2 && checkSmall.checked) {
+            output.innerHTML += choosenSmallAlpha;
+            count++;
+          }
+
+          if (randNumber === 3 && checkSpecial.checked) {
+            output.innerHTML += choosenSpecialChar;
+            count++;
+          }
+        }
+      };
+
+      const ClearPassword = () => {
+        digitInput.value = "";
+
+        checkInt.checked = false;
+        checkSmall.checked = false;
+        checkCapital.checked = false;
+        checkSpecial.checked = false;
+
+        output.innerHTML = "";
+      };
+    </script>
+  </body>
+</html>
